@@ -31,16 +31,16 @@ namespace Assignment
         public (int Count, int Dequeued, int Peek, int CountAfterPeek) LCT02_QueueSyntax()
         {
             Queue<int> queue = new Queue<int>();
-            queue.Enqueue(1); // Head
+            queue.Enqueue(1); // head
             queue.Enqueue(2);
             queue.Enqueue(3);
 
-            int count  = queue.Count; // 3
+            int count = queue.Count; // 3
             int dequeued = queue.Dequeue(); // dequeued = 1
             int peek = queue.Peek(); // peek = 2
             int countAfterPeek = queue.Count; // countAfterPeek = 2
 
-            return(count, dequeued, peek, countAfterPeek);
+            return (count, dequeued, peek, countAfterPeek);
         }
 
         public string[] LCT03_ActionStack()
@@ -72,22 +72,21 @@ namespace Assignment
             Action action2 = new Action { Name = "Action 2" };
             Action action3 = new Action { Name = "Action 3" };
 
-            Queue<Action> queue = new();
+
+            Queue<Action> queue = new Queue<Action>();
             queue.Enqueue(action1);
             queue.Enqueue(action2);
             queue.Enqueue(action3);
 
             int c = queue.Count;
-            List<string> actions = new List<string>();
+            List<string> action = new List<string>();
             for (int i = 0; i < c; i++)
             {
-                //Action a = queue.Dequeue();
-                //actions.Add(queue.Dequeue().Name);
                 var a = queue.Dequeue();
-                actions.Add(a.Name);
-            }
+                action.Add(a.Name);
 
-            return actions.ToArray();
+            }
+            return action.ToArray();
         }
 
         #endregion

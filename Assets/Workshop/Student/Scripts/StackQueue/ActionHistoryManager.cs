@@ -31,15 +31,18 @@ namespace Solution
                 return;
             }
             // Need at least two states: the current one, and the one to revert to.
+
             var p = undoStack.Pop();
             redoStack.Push(p);
-            // redoStack.Push(undoStack.Pop());
-
+            undoStack.Pop();
             var prevPosition = undoStack.Pop();
-            player.UpdatePosition((int)prevPosition.x , (int)prevPosition.y);
+            player.UpdatePosition((int)prevPosition.x, (int)prevPosition.y);
+
+
         }
         public void RedoLastMove(OOPPlayer player)
         {
+            // Need at least two states: the current one, and the one to revert to.
             if (redoStack.Count == 0)
             {
                 return;
@@ -47,7 +50,7 @@ namespace Solution
             // Need at least two states: the current one, and the one to revert to.
             var p = redoStack.Pop();
             undoStack.Push(p);
-            player.UpdatePosition((int)p.x , (int)p.y);
+            player.UpdatePosition((int)p.x, (int)p.y);
         }
         #endregion
 
@@ -57,10 +60,10 @@ namespace Solution
         {
             //create a sample sequence of moves
             // 1. prepare the Queue with the sequence of moves
+
+            // Start the coroutine to process the auto-move sequence
             Vector2[] moves = new Vector2[]
             {
-                Vector2.right,
-                Vector2.right,
                 Vector2.right,
                 Vector2.right,
                 Vector2.up,
@@ -68,13 +71,6 @@ namespace Solution
                 Vector2.up,
                 Vector2.down,
             };
-
-            for (int i = 0; i < moves.Length; i++)
-            {
-                autoMoveQueue.Enqueue(moves[i]);
-            }
-
-            // Start the coroutine to process the auto-move sequence
             StartCoroutine(ProcessAutoMoveSequence(player));
         }
         public IEnumerator ProcessAutoMoveSequence(OOPPlayer player)
@@ -92,6 +88,7 @@ namespace Solution
                 yield return new WaitForSeconds(0.5f);
             }
 
+
             player.isAutoMoving = false;
             Debug.Log("Auto-move sequence finished.");
         }
@@ -100,4 +97,3 @@ namespace Solution
 
     }
 }
-
