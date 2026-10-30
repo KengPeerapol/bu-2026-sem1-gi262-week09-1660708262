@@ -95,12 +95,42 @@ namespace Assignment
 
         public string ASN01_ReverseString(string str)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(str)) return str;
+
+            Stack<char> stack = new Stack<char>();
+            foreach (char c in str)
+            {
+                stack.Push(c);
+            }
+
+            char[] reversed = new char[str.Length];
+            for (int i = 0; i < str.Length; i++)
+            {
+                reversed[i] = stack.Pop();
+            }
+
+            return new string(reversed);
         }
 
         public bool ASN02_StackPalindrome(string str)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(str)) return true;
+
+            Stack<char> stack = new Stack<char>();
+            foreach (char c in str)
+            {
+                stack.Push(c);
+            }
+
+            foreach (char c in str)
+            {
+                if (stack.Pop() != c)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         #endregion
@@ -109,7 +139,31 @@ namespace Assignment
 
         public bool EX01_ParenthesesChecker(string str)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(str)) return true;
+
+            Stack<char> stack = new Stack<char>();
+
+            foreach (char c in str)
+            {
+                if (c == '(' || c == '{' || c == '[')
+                {
+                    stack.Push(c);
+                }
+                else if (c == ')' || c == '}' || c == ']')
+                {
+                    if (stack.Count == 0) return false;
+
+                    char top = stack.Pop();
+                    if ((c == ')' && top != '(') ||
+                        (c == '}' && top != '{') ||
+                        (c == ']' && top != '['))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return stack.Count == 0;
         }
 
         #endregion
